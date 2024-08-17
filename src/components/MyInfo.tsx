@@ -1,20 +1,51 @@
-function MyInfo () {
-    return (
-        <div>
-            <h1>Personal Profile</h1>
-            <p>Name: John Doe</p>
-            <p>Age: 30</p>
-            <p>Email: <a href="mailto:johndoe@example.com">johndoe@example.com</a></p>
-            <p>Occupation: Software Engineer</p>
-            <p>Location: New York, USA</p>
-            <p>Phone: 123-456-7890</p>
-            <p>Skills: JavaScript, React, Node.js, HTML/CSS, SQL</p>
-            <p>Interests: Hiking, Reading, Playing Guitar, Photography, Traveling</p>
-            <p>Education: Bachelor's Degree in Computer Science, XYZ University</p>
-            <p>Experience: 5+ years of experience in software development</p>
-            <p>Relevant Projects: <a href="https://github.com/johndoe/myproject">MyProject</a>, <a href="https://github.com/johndoe/anotherproject">AnotherProject</a></p>
-            <p>Awards: Winner of the XYZ Hackathon, Finalist in the ABC Coding Competition</p>
-        </div>
-    )
+import React from 'react';
+
+interface PageInfo {
+  name?: string;
+  age?: number;
+  email?: string;
+  occupation?: string;
+  location?: string;
+  phone?: string;
+  skills?: string;
+  interests?: string;
+  education?: string;
+  experience?: number;
+  projects?: { link: string; name: string }[];
+  awards?: string[];
 }
+
+
+
+const formatProjectList = ({ projects }: PageInfo) => (
+  projects ? projects.map((project, index) => (
+        <span key={index}>
+          <a href={project.link}>{project.name}</a>
+      {index < projects.length - 1 && ', '}
+        </span>
+  )) : null
+);
+
+const formatAwardList = ({ awards }: PageInfo) => awards ? awards.join(', ') : '';
+
+function MyInfo({ pageInfo }: { pageInfo: PageInfo }) {
+  return (
+    <div>
+      <h1>Personal Profile</h1>
+      <p>Name: {pageInfo.name}</p>
+      <p>Age: {pageInfo.age}</p>
+      <p>Email: <a href={pageInfo.email || ''}>{pageInfo.email}</a></p>
+      <p>Occupation: {pageInfo.occupation}</p>
+      <p>Location: {pageInfo.location}</p>
+      <p>Phone: {pageInfo.phone}</p>
+      <p>Skills: {pageInfo.skills}</p>
+      <p>Interests: {pageInfo.interests}</p>
+      <p>Education: {pageInfo.education}</p>
+      <p>Experience: {pageInfo.experience} years</p>
+      <p>Relevant Projects: {formatProjectList(pageInfo)}</p>
+      <p>Awards: {formatAwardList(pageInfo)}</p>
+    </div>
+  );
+}
+
 export default MyInfo;
