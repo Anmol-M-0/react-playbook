@@ -1,3 +1,12 @@
+# init tailwinds
+- npm install -D tailwindcss postcss autoprefixer
+- npx tailwindcss init -p
+- in tailwind.config.js add ```
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],```
+- now hot reload will update the (tailwind)css
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
